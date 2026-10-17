@@ -1,16 +1,42 @@
-# React + Vite
+# React Product Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React app built with Vite that shows a list of products
+and greets the user by name.
 
-Currently, two official plugins are available:
+## File Organization
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `src/main.jsx`: entry point, renders the App component.
+- `src/App.jsx`: root component. Holds the `showProducts` and `name` state,
+  the toggle button, the controlled input, and conditionally renders ProductList.
+- `src/components/ProductList.jsx`: holds the static products array and renders
+  one Product per item using `.map()` with `id` as the key.
+- `src/components/Product.jsx`: shows a product's title and price from props,
+  wrapped inside Card. It has no state.
+- `src/components/Card.jsx`: a reusable wrapper that renders `children` with a
+  border, padding and margin.
 
-## React Compiler
+## Challenges I Faced
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **PowerShell blocked npm.** PowerShell refused to run `npm` because running
+   scripts was disabled. I fixed it with
+   `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`.
+   I also had a typo (`creat` instead of `create`), so I learned to read errors carefully.
 
-## Expanding the ESLint configuration
+2. **GitHub login failed on the first push.** The browser sign-in ended with
+   "127.0.0.1 refused to connect". I retried the push and signed in again,
+   and then it worked.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. **Working in small commits.** I built the project step by step (Card, Product,
+   ProductList, state, toggle button) and tested each part in the browser
+   before committing.
+
+4. **Understanding React concepts.** The hardest parts were why `key` should be
+   a stable id and not the array index, how `children` works in Card, and how a
+   controlled input works (`value={name}` with `onChange`).
+
+## Run
+
+```bash
+npm install
+npm run dev
+```
